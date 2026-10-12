@@ -6,10 +6,29 @@ namespace StrongLocker.Interop;
 /// <summary>Thin P/Invoke surface. Nothing here requires elevation.</summary>
 internal static class NativeMethods
 {
-    // ---------- Low-level keyboard hook ----------
+    // ---------- Low-level keyboard / mouse hooks ----------
     public const int WH_KEYBOARD_LL = 13;
+    public const int WH_MOUSE_LL = 14;
     public const int WM_KEYDOWN = 0x0100;
     public const int WM_SYSKEYDOWN = 0x0104;
+    public const int WM_MOUSEMOVE = 0x0200;
+
+    // "Injected" flags: input synthesized by software (SendInput), not real hardware.
+    public const uint LLKHF_INJECTED = 0x10; // KBDLLHOOKSTRUCT.flags
+    public const uint LLMHF_INJECTED = 0x01; // MSLLHOOKSTRUCT.flags
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct POINT { public int x; public int y; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MSLLHOOKSTRUCT
+    {
+        public POINT pt;
+        public uint mouseData;
+        public uint flags;
+        public uint time;
+        public IntPtr dwExtraInfo;
+    }
 
     public const int VK_TAB = 0x09;
     public const int VK_ESCAPE = 0x1B;
