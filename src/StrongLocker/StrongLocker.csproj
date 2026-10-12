@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>StrongLocker</AssemblyName>
+    <RootNamespace>StrongLocker</RootNamespace>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Version>0.1.0</Version>
+    <Product>StrongLocker</Product>
+    <Company>StrongLocker</Company>
+    <Description>StrongLocker - a privacy screen cover / soft lock for Windows.</Description>
+    <!-- DPI awareness is declared in app.manifest (correct for WPF); silence the
+         WinForms-only analyzer that wants ApplicationHighDpiMode instead. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+
+</Project>

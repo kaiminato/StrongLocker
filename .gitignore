@@ -1,0 +1,15 @@
+# Build output
+bin/
+obj/
+
+# Rider / VS
+.vs/
+.idea/
+*.user
+
+# Published output
+publish/
+dist/
+
+# Test/user asset left in build output
+background.png

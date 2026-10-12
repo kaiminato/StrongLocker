@@ -1,0 +1,47 @@
+<Window x:Class="StrongLocker.Views.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="True"
+        AllowsTransparency="False"
+        WindowStartupLocation="Manual"
+        Focusable="True"
+        Title="StrongLocker"
+        Foreground="White"
+        FontFamily="Segoe UI Variable, Segoe UI">
+    <Grid>
+        <!-- Background layer (can carry a Gaussian blur effect) -->
+        <Rectangle x:Name="BgLayer"/>
+        <!-- Darkening tint over the chosen background -->
+        <Rectangle x:Name="TintLayer" Fill="Black" Opacity="0"/>
+
+        <!-- Clock -->
+        <StackPanel x:Name="ClockPanel"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,0,0,120" Visibility="Collapsed">
+            <TextBlock x:Name="ClockText" FontSize="104" FontWeight="Light"
+                       HorizontalAlignment="Center" Foreground="White">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="0" Opacity="0.7"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="DateText" FontSize="24" FontWeight="Light"
+                       HorizontalAlignment="Center" Opacity="0.85" Margin="0,2,0,0"
+                       Foreground="White">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="12" ShadowDepth="0" Opacity="0.7"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Preview banner -->
+        <Border x:Name="PreviewBadge" Visibility="Collapsed"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Margin="0,0,0,60" Background="#CC14141A" CornerRadius="20" Padding="22,10">
+            <TextBlock Text="Preview - press any key or click to exit"
+                       Foreground="White" FontSize="14"/>
+        </Border>
+    </Grid>
+</Window>
