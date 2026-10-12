@@ -189,10 +189,14 @@ public partial class SettingsWindow : Window
         _settings.HotkeyKey = _capturedVk;
 
         _settings.IdleLockEnabled = IdleEnabled.IsChecked == true;
-        if (_settings.IdleLockEnabled)
-        {
-            if (!int.TryParse(IdleMinutes.Text, out int mins) || mins <= 0) { Fail("Idle minutes must be a positive number."); return; }
+        // Always persist the minutes value when it's valid, whether or not idle-lock
+        // is currently enabled. Only block the save if the box is on and the value is bad.
+        if (int.TryParse(IdleMinutes.Text, out int mins) && mins > 0)
             _settings.IdleMinutes = mins;
+        else if (_settings.IdleLockEnabled)
+        {
+            Fail("Idle minutes must be a positive number.");
+            return;
         }
 
         if (BgCombo.SelectedItem is BackgroundMode bg) _settings.BackgroundMode = bg;
