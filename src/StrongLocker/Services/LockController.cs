@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using StrongLocker.Interop;
 using StrongLocker.Models;
 using StrongLocker.Views;
 using Forms = System.Windows.Forms;
@@ -79,6 +80,14 @@ public sealed class LockController
         _previewOverlays.Clear();
     }
 
+    /// <summary>Emergency exit (Esc): remove our overlay, then hand off to the real
+    /// Windows lock screen so the desktop is never left exposed.</summary>
+    private void EmergencyExit()
+    {
+        Unlock();
+        try { NativeMethods.LockWorkStation(); } catch { }
+    }
+
     private List<OverlayOptions> BuildPlans(AppSettings s, bool preview)
     {
         // Capture every monitor BEFORE any overlay is shown, otherwise a later
@@ -100,7 +109,8 @@ public sealed class LockController
                 IsPreview = preview,
                 PasswordLength = s.PasswordLength,
                 VerifyPassword = (!preview && isPrimary) ? (pw => PasswordStore.Verify(s, pw)) : null,
-                Unlocked = preview ? ClosePreview : (isPrimary ? Unlock : null)
+                Unlocked = preview ? ClosePreview : (isPrimary ? Unlock : null),
+                EmergencyLock = (!preview && isPrimary) ? EmergencyExit : null
             });
         }
         return plans;

@@ -36,6 +36,11 @@
             </TextBlock>
         </StackPanel>
 
+        <!-- Emergency hint -->
+        <TextBlock x:Name="EmergencyHint" Text="Esc &#8212; lock this PC"
+                   Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                   Margin="0,0,0,24" FontSize="12" Opacity="0.35" Foreground="White"/>
+
         <!-- Preview banner -->
         <Border x:Name="PreviewBadge" Visibility="Collapsed"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom"

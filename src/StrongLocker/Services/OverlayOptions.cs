@@ -27,4 +27,7 @@ public sealed class OverlayOptions
 
     /// <summary>Raised when the overlay should be dismissed (unlocked or preview exit).</summary>
     public Action? Unlocked { get; init; }
+
+    /// <summary>Esc emergency: tear down the overlay and lock the Windows session instead.</summary>
+    public Action? EmergencyLock { get; init; }
 }

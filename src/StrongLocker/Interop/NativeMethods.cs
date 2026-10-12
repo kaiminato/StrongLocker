@@ -88,4 +88,9 @@ internal static class NativeMethods
 
     // Message-only window parent for the hotkey sink.
     public static readonly IntPtr HWND_MESSAGE = new(-3);
+
+    // ---------- Lock the Windows session (emergency fallback) ----------
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool LockWorkStation();
 }

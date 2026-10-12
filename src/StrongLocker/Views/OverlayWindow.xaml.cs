@@ -56,6 +56,7 @@ public partial class OverlayWindow : Window
         }
         else if (options.IsPrimary)
         {
+            EmergencyHint.Visibility = Visibility.Visible;
             Loaded += (_, _) => { Activate(); Keyboard.Focus(this); };
         }
 
@@ -82,7 +83,15 @@ public partial class OverlayWindow : Window
 
     private void OnPreviewKeyDown(object sender, KeyEventArgs e)
     {
-        if (_options.IsPreview) { Dismiss(); e.Handled = true; }
+        if (_options.IsPreview) { Dismiss(); e.Handled = true; return; }
+
+        // Emergency: Esc removes our overlay and hands off to the Windows lock screen.
+        if (_options.IsPrimary && e.Key == Key.Escape && _options.EmergencyLock is not null)
+        {
+            _unlocking = true;
+            _options.EmergencyLock.Invoke();
+            e.Handled = true;
+        }
     }
 
     private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
